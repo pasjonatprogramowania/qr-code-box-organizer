@@ -20,9 +20,9 @@
             </div>
           </div>
           <footer class="card-footer grid has-text-centered ">
-            <a class="card-footer-item p-4 " @click="addItemsToBox(box)">Dodaj przedmioty</a>
-            <a class="card-footer-item p-4" @click="viewDetails(box)">Szczegóły</a>
-            <a class="card-footer-item p-4" @click="showQRCode(box)">Kod QR</a>
+            <a class="card-footer-item button p-4 " @click="addItemsToBox(box)">Dodaj przedmioty</a>
+            <a class="card-footer-item button p-4" @click="viewDetails(box)">Szczegóły</a>
+            <a class="card-footer-item button p-4" @click="showQRCode(box)">Kod QR</a>
             <a class="card-footer-item is-danger button p-4" @click="deleteBox(box.id)">Usuń</a>
           </footer>
         </div>

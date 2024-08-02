@@ -1,24 +1,38 @@
 <template>
   <div class="qr-scanner is-grid">
-    <h2 class="title is-4">Scan QR Code</h2>
-    <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
+    <h2 class="title is-4">Zeskanuj kod</h2>
+    <QrStream :constraints="{ facingMode }" @error="onError" @decode="onDecode" @init="onInit">
+    </QrStream>
   </div>
 </template>
 
 <script>
-import { QrcodeStream } from 'vue-qrcode-reader';
+import { QrStream } from 'vue3-qr-reader';
 import { useBoxStore } from '../stores/boxStore';
+import {ref} from "vue";
 
 export default {
-  components: { QrcodeStream },
-  setup() {
+  components: { QrStream },
+  setup(props, { emit }) {
     const boxStore = useBoxStore();
+    const facingMode =  ref('environment');
+    const result = ref('')
+    function switchCamera() {
+      switch (facingMode) {
+        case 'environment':
+          facingMode.value = 'user'
+          break
+        case 'user':
+          facingMode.value = 'environment'
+          break
+      }
+    }
 
-    const onDecode = (decodedString) => {
-      const box = boxStore.boxes.find(box => box.id.toString() === decodedString);
+    function onDecode (detectedCodes){
+      console.log(JSON.parse(detectedCodes)?.id);
+      const box = boxStore.boxes.find(box => box.id === JSON.parse(detectedCodes)?.id);
       if (box) {
-        // Emit an event to open the box contents
-        this.$emit('open-box', box);
+        emit('open-box', box);
       } else {
         alert('Box not found');
       }
@@ -48,7 +62,7 @@ export default {
       }
     };
 
-    return { onDecode, onInit };
+    return { onDecode, onInit,switchCamera,result };
   }
 };
 </script>

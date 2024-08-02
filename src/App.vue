@@ -4,8 +4,7 @@
     <div class="section">
       <component :is="currentView" @open-box="openBoxContents"></component>
     </div>
-
-    <div class="tabs is-boxed is-fullwidth">
+    <div class="tabs is-fullwidth is-toggle is-large">
       <ul>
         <li :class="{ 'is-active': currentView === QRScanner }">
           <a @click="currentView = QRScanner">
@@ -87,7 +86,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  background-color: #2d3436;
 }
 
 .buttons {

@@ -42,10 +42,13 @@
             <label class="label">Zdjęcie</label>
             <div class="control">
               <input type="file" @change="handleImageUpload" accept="image/*">
+
             </div>
           </div>
           <div v-if="editedItem.image" class="field">
-            <img :src="editedItem.image" alt="Item image" style="width: 100px; height: 100px; object-fit: cover;">
+            <figure class="image is-128x128">
+              <img :src="loadImgULR(editedItem.image)"  alt="cos">
+            </figure>
           </div>
           <div class="field">
             <label class="label">Notatka</label>
@@ -87,13 +90,15 @@ export default defineComponent({
         reader.readAsDataURL(file);
       }
     };
-
+    function loadImgULR(img){
+      return  new URL(img,import.meta.url).href;
+    }
     const updateItem = () => {
       boxStore.updateItem(props.boxId, editedItem.value);
       emit('close');
     };
 
-    return { editedItem, handleImageUpload, updateItem };
+    return { editedItem, handleImageUpload, updateItem ,loadImgULR};
   },
 });
 </script>

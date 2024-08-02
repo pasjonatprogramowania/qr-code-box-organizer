@@ -92,6 +92,9 @@ export default defineComponent({
     };
 
     const addItem = () => {
+      if (item.value.image == null){
+        item.value.image = "../assets/img/empty.jpg";
+      }
       boxStore.addItem(props.box.id, { ...item.value });
       emit('close');
     };
