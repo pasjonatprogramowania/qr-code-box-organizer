@@ -37,7 +37,8 @@ export default defineComponent({
             'Quantity': item.quantity,
             'Value': item.value,
             'Date Added': item.dateAdded,
-            'Date Removed': item.dateRemoved
+            'Date Removed': item.dateRemoved,
+            'Note': item.note,
           }))
       );
 
